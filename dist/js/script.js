@@ -54,8 +54,11 @@
 
   // eslint-disable-next-line no-unused-vars
   class Product{
-    constructor(){
+    constructor(id, data){
       const thisProduct = this;
+
+      thisProduct.id = id;
+      thisProduct.data = data;
 
       console.log('new Product:', thisProduct);
     }
