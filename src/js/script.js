@@ -194,6 +194,7 @@
     constructor(element){
       const thisWidget = this;
       thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
       console.log('AmountWidget:', thisWidget);
       console.log('constructor arguments:', element);
     }
@@ -213,7 +214,9 @@
       const newValue = parseInt(value);
 
       /* TODO : Add validation */
-
+      if(thisWidget.value !== newValue && !isNaN(newValue)) {
+        thisWidget.value = newValue;
+      }
       thisWidget.value = newValue;
       thisWidget.input.value = thisWidget.value;
     }
