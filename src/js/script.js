@@ -182,6 +182,15 @@
       thisProduct.priceElem.innerHTML = price;
     }
   }
+  // eslint-disable-next-line no-unused-vars
+  class AmountWidget {
+    constructor(element){
+      const thisWidget = this;
+
+      console.log('AmountWidget:', thisWidget);
+      console.log('constructor arguments:', element);
+    }
+  }
 
   const app = {
     initMenu: function(){ // initMenu = object method
