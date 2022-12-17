@@ -44,7 +44,7 @@
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
-      defaultMax: 9,
+      defaultMax: 10,
     }
   };
 
@@ -179,6 +179,8 @@
           }
         }
       }
+      // multiply pprice by amount
+      price *= thisProduct.amountWidget.value;
     
       // update calculated price in the HTML
       thisProduct.priceElem.innerHTML = price;
@@ -187,6 +189,9 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+      thisProduct.amountWidgetElem.addEventListener('updated', function(){
+        thisProduct.processOrder();
+      });
     }
   }
   
@@ -228,9 +233,10 @@
       }
 
       if(thisWidget.value > maxValue){
-        thisWidget.value = maxValue + 1;
+        thisWidget.value = maxValue;
       }
       thisWidget.input.value = thisWidget.value;
+      thisWidget.announce();
     }
 
     initActions(){
@@ -247,6 +253,13 @@
         event.preventDefault();
         thisWidget.setValue(thisWidget.value + 1);
       });
+    }
+
+    announce(){
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
     }
   }
   const app = {
