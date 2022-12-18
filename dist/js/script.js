@@ -298,6 +298,28 @@
       thisWidget.element.dispatchEvent(event);
     }
   }
+
+  // eslint-disable-next-line no-unused-vars
+  class Cart{
+    constructor(element){
+      const thisCart = this;
+
+      thisCart.products = [];
+
+      thisCart.getElements(element);
+
+      console.log('new Cart', thisCart);
+    }
+
+    getElements(element){
+      const thisCart = this;
+
+      thisCart.dom = {};
+
+      thisCart.dom.wrapper = element;
+    }
+  }
+
   const app = {
     initMenu: function(){ // initMenu = object method
       const thisApp = this;
