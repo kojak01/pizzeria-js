@@ -252,6 +252,38 @@
 
       return productSummary;
     }
+
+    prepareCartProductParams(){
+      const thisProduct = this;
+    
+      // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      console.log('formData', formData);
+      
+      const params ={}; 
+      // for every category (param)...
+      for (let paramId in thisProduct.data.params){
+        const param = thisProduct.data.params[paramId];
+        console.log(paramId, param);
+        // add category param in params  
+        params[paramId] = {
+          label: param.label,
+          options: {}
+        };
+        // loop for every option in this category
+        for(let optionId in param.options){
+          const option = param.options[optionId];
+          console.log(optionId, option);
+
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+          // check if there is a parameter called paramId in formData and if it contains optionId
+          if(optionSelected) {
+            params[paramId].options[optionId] = option.label;
+          }
+        }
+      }
+      return params;
+    }
   }
   
   class AmountWidget{
