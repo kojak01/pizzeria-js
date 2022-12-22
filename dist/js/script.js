@@ -398,12 +398,11 @@
 
       console.log('adding product', menuProduct);
 
-      thisCart.products.push(menuProduct);
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
       console.log('thisCart.products', thisCart.products);
     }
   }
 
-  // eslint-disable-next-line no-unused-vars
   class CartProduct{
     constructor(menuProduct, element){
       const thisCartProduct = this;
