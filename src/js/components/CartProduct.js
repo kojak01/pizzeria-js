@@ -1,3 +1,6 @@
+import {select} from '../settings.js';
+import AmountWidget from '../components/AmountWidget.js';
+
 class CartProduct{
   constructor(menuProduct, element){
     const thisCartProduct = this;
@@ -55,15 +58,13 @@ class CartProduct{
   initActions(){
     const thisCartProduct = this;
 
-    // thisCartProduct.dom.edit.addEventListener('click', function(){
-    //   event.preventDefault();
-    //   thisCartProduct.edit();
-    // });
+    thisCartProduct.dom.edit.addEventListener('click', function(event){
+      event.preventDefault();
+    });
 
-    thisCartProduct.dom.remove.addEventListener('click', function(){
+    thisCartProduct.dom.remove.addEventListener('click', function(event){
       event.preventDefault();
       thisCartProduct.remove();
-      console.log('remove click');
     });
   }
 
@@ -82,3 +83,5 @@ class CartProduct{
     return data;
   }
 }
+
+export default CartProduct;

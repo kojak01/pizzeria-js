@@ -1,6 +1,6 @@
-import {select, classNames, templates} from './settings.js';
-import utils from './utils.js';
-import AmountWidget from './components/AmountWidget.js';
+import {select, classNames, templates} from '../settings.js';
+import {utils} from '../utils.js';
+import AmountWidget from '../components/AmountWidget.js';
 
 class Product{
   constructor(id, data){
@@ -20,10 +20,8 @@ class Product{
   }
 
   renderInMenu(){
-    // eslint-disable-next-line no-unused-vars
     const thisProduct =  this;
     /* generate HTML based on template */
-    // eslint-disable-next-line no-unused-vars
     const generatedHTML = templates.menuProduct(thisProduct.data);
     /* create element using utils.createElementFromHTML */
     thisProduct.element = utils.createDOMFromHTML(generatedHTML);

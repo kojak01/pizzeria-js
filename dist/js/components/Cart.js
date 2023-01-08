@@ -1,3 +1,7 @@
+import {select, classNames, settings, templates} from '../settings.js';
+import CartProduct from '../components/CartProduct.js';
+import {utils} from '../utils.js';
+
 class Cart{
   constructor(element){
     const thisCart = this;
@@ -132,14 +136,8 @@ class Cart{
       body: JSON.stringify(payload),
     };
       
-    fetch(url, options)
-      .then(function(response){
-        return response.json();
-      }).then(function(parsedResponse){
-        console.log('parsedResponse', parsedResponse);
-      });
+    fetch(url, options);
   }
-
 }
 
 export default Cart;

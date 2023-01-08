@@ -1,12 +1,11 @@
 import {settings, select} from './settings.js';
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
+
 const app = {
   initMenu: function(){
     const thisApp = this;
-    //console.log('thisApp.data', thisApp.data);
     for(let productData in thisApp.data.products) {
-      // new Product(productData, thisApp.data.products[productData]);
       new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
     }
   },
@@ -14,7 +13,6 @@ const app = {
   initData: function(){
     const thisApp = this;
     thisApp.data = {};
-    // thisApp.data = dataSource;
     const url = settings.db.url + '/' + settings.db.products;
 
     fetch(url)
@@ -50,14 +48,14 @@ const app = {
 
   init: function(){
     const thisApp = this;
-    console.log('*** App starting ***');
-    console.log('thisApp:', thisApp);
-    console.log('classNames:', classNames);
-    console.log('settings:', settings);
-    console.log('templates:', templates);
+    // console.log('*** App starting ***');
+    // console.log('thisApp:', thisApp);
+    // console.log('classNames:', classNames);
+    // console.log('settings:', settings);
+    // console.log('templates:', templates);
 
     thisApp.initData();
-    thisApp.initMenu(); // this => object APP
+    // thisApp.initMenu();
     thisApp.initCart();
   },
 };
