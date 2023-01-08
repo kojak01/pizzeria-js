@@ -8,13 +8,14 @@ class AmountWidget{
     thisWidget.setValue(thisWidget.input.value);
     thisWidget.initActions(thisWidget.value);
 
-    //console.log('AmountWidget:', thisWidget);
-    //console.log('constructor arguments:', element);
+    console.log('AmountWidget:', thisWidget);
+    console.log('constructor arguments:', element);
   }
+
 
   getElements(element){
     const thisWidget = this;
-    
+
     thisWidget.element = element;
     thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
     thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
@@ -30,7 +31,7 @@ class AmountWidget{
 
     thisWidget.value = settings.amountWidget.defaultValue;
 
-    /* TODO : Add validation */
+    /* TODO: Add validation */
     if(thisWidget.value !== newValue && !isNaN(newValue)){
       thisWidget.value = newValue;
     }
@@ -42,7 +43,9 @@ class AmountWidget{
     if(thisWidget.value > maxValue){
       thisWidget.value = maxValue;
     }
+
     thisWidget.input.value = thisWidget.value;
+
     thisWidget.announce();
   }
 

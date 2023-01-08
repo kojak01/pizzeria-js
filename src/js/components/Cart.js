@@ -11,7 +11,7 @@ class Cart{
     thisCart.getElements(element);
     thisCart.initActions();
 
-    //console.log('new Cart', thisCart);
+    console.log('new Cart', thisCart);
   }
 
   getElements(element){
@@ -55,13 +55,16 @@ class Cart{
   add(menuProduct){
     const thisCart = this;
 
+    /* generate HTML based on template */
     const generatedHTML = templates.cartProduct(menuProduct);
 
+    /* create element using utils.createElementFromHTML */
     const generatedDOM = utils.createDOMFromHTML(generatedHTML);
 
+    /* add element to menu */
     thisCart.dom.productList.appendChild(generatedDOM);
 
-    //console.log('adding product', menuProduct);
+    console.log('adding product', menuProduct);
 
     thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
     console.log('thisCart.products', thisCart.products);
@@ -71,18 +74,18 @@ class Cart{
 
   update(){
     const thisCart = this;
-      
-    const deliveryFee = settings.cart.defaultDeliveryFee;
 
+    const deliveryFee = settings.cart.defaultDeliveryFee;
     thisCart.totalNumber = 0;
     thisCart.subtotalPrice = 0;
+    thisCart.totalPrice = 0;
 
     for(let product of thisCart.products){
       thisCart.totalNumber += product.amount;
       thisCart.subtotalPrice += product.price;
     }
 
-    if(thisCart.totalNumber != 0){
+    if (thisCart.totalNumber != 0){
       thisCart.totalPrice = thisCart.subtotalPrice + deliveryFee;
       thisCart.dom.deliveryFee.innerHTML = deliveryFee;
     } else {
@@ -93,7 +96,8 @@ class Cart{
     thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
     thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
 
-    for(let price of thisCart.dom.totalPrice){
+
+    for (let price of thisCart.dom.totalPrice){
       price.innerHTML = thisCart.totalPrice;
     }
   }
@@ -124,7 +128,7 @@ class Cart{
       products: [],
     };
 
-    for(let prod of thisCart.products) {
+    for(let prod of thisCart.products){
       payload.products.push(prod.getData());
     }
 
@@ -133,9 +137,9 @@ class Cart{
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(payload)
     };
-      
+
     fetch(url, options);
   }
 }
