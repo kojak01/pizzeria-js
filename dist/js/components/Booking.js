@@ -1,7 +1,7 @@
 import {select, templates} from '../settings.js';
-import {utils} from '../utils.js';
 import AmountWidget from '../components/AmountWidget.js';
-
+import DatePicker from '../components/DatePicker.js';
+import HourPicker from '../components/HourPicker.js';
 class Booking{
   constructor(element){
     const thisBooking = this;
@@ -12,34 +12,29 @@ class Booking{
 
   render(element){
     const thisBooking = this;
-
     const generatedHTML = templates.bookingWidget();
-
-    thisBooking.element = utils.createDOMFromHTML(generatedHTML);
-
-    const bookingContainer = document.querySelector(select.containerOf.booking);
-    bookingContainer.appendChild(thisBooking.element).innerHTML;
-
+    
     thisBooking.dom = {};
     thisBooking.dom.wrapper = element;
     thisBooking.dom.wrapper.innerHTML = generatedHTML;
-    thisBooking.dom.hoursAmount = element.querySelector(select.booking.hoursAmount);
-    thisBooking.dom.peopleAmount = element.querySelector(select.booking.peopleAmount);
+    thisBooking.dom.peopleAmount = thisBooking.dom.wrapper.querySelector(select.booking.peopleAmount);
+    thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
+    thisBooking.dom.datePickerInput = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
+    thisBooking.dom.hourPickerInput = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
   }
-
   initWidgets(){
     const thisBooking = this;
-
-    thisBooking.peopleAmountElem = new AmountWidget(thisBooking.dom.peopleAmount);
-    thisBooking.hoursAmountElem = new AmountWidget(thisBooking.dom.hoursAmount);
-
-    thisBooking.dom.hoursAmount.addEventListener('updated', function(){
-
-    });
-
+    thisBooking.peopleAmount = new AmountWidget(thisBooking.dom.peopleAmount);
     thisBooking.dom.peopleAmount.addEventListener('updated', function(){
-
+      
+    }); 
+    thisBooking.hoursAmount = new AmountWidget(thisBooking.dom.hoursAmount);
+    thisBooking.dom.hoursAmount.addEventListener('updated', function(){
+      
     });
+    
+    thisBooking.datePicker = new DatePicker(thisBooking.dom.datePickerInput);
+    thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPickerInput);
   }
 }
 
