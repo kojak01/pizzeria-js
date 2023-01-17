@@ -14,20 +14,25 @@ class Booking{
   getData(){
     const thisBooking = this;
 
+    const startDateParam = settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate);
+    const endDateParam = settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate);
+    
     const params = {
       booking: [
-        settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate),
-        settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate),
+        startDateParam,
+        endDateParam,
       ],
       eventsCurrent: [
-        settings.db.dateStartParamKey + '=' + utils.dateToStr(thisBooking.datePicker.minDate),
-        settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate),
+        settings.db.notRepeatParam,
+        startDateParam,
+        endDateParam,
       ],
       eventsRepeat: [
-        settings.db.dateEndParamKey + '=' + utils.dateToStr(thisBooking.datePicker.maxDate),
+        settings.db.repeatParam,
+        endDateParam,
       ],
     };
-    console.log('getData paramms', params);
+    // console.log('getData paramms', params);
     const urls = {
       booking:        settings.db.url + '/' + settings.db.booking
                                       + '?' + params.booking.join('&') ,
@@ -36,7 +41,14 @@ class Booking{
       eventsRepeat:   settings.db.url + '/' + settings.db.event
                                       + '?' + params.eventsRepeat.join('&') ,
     };
-    console.log('getData', urls);
+    // console.log('getData', urls);
+    fetch(urls.booking)
+      .then(function(bookingsResponse){
+        return bookingsResponse.json();
+      })
+      .then(function(bookings){
+        console.log(bookings);
+      });
   }
   render(element){
     const thisBooking = this;
