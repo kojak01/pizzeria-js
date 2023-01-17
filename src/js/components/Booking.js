@@ -8,8 +8,17 @@ class Booking{
 
     thisBooking.render(element);
     thisBooking.initWidgets();
+    thisBooking.getData();
   }
+  getData(){
+    const thisBooking = this;
 
+    const urls = {
+      booking:        '',
+      eventsCurrent:  '',
+      eventsRepeat:   '',
+    };
+  }
   render(element){
     const thisBooking = this;
     const generatedHTML = templates.bookingWidget();
