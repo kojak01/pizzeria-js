@@ -1,4 +1,4 @@
-import {select, settings, templates} from '../settings.js';
+import {select, settings, templates, classNames} from '../settings.js';
 import {utils} from '../utils.js';
 import AmountWidget from '../components/AmountWidget.js';
 import DatePicker from '../components/DatePicker.js';
@@ -111,7 +111,42 @@ class Booking{
     }
     
   }
-  
+
+  updateDOM(){
+    const thisBooking = this;
+
+    thisBooking.date = thisBooking.datePicker.value;
+    thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
+
+    let allAvailable = false;
+
+    if(
+      typeof thisBooking.booked[thisBooking.date] == 'undefined'
+      ||
+      typeof thisBooking.booked[thisBooking.date][thisBooking.hour] == 'undefined'
+    ){
+      allAvailable = true;
+    }
+
+    for(let table of thisBooking.dom.tables){
+      let tableId = table.getAttribute(settings.booking.tableIdAttribute);
+      if(!isNaN(tableId)){
+        tableId = parseInt(tableId);
+      }
+
+      if(
+        !allAvailable
+        &&
+        thisBooking.booked[thisBooking.date][thisBooking.hour].includes(tableId)
+      ){
+        table.classList.add(classNames.booking.tableBooked);
+      } else {
+        table.classList.remove(classNames.booking.tableBooked);
+      }
+    }
+  }
+
+
   render(element){
     const thisBooking = this;
     const generatedHTML = templates.bookingWidget();
