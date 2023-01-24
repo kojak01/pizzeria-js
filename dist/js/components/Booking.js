@@ -156,7 +156,7 @@ class Booking{
     for(let table of thisBooking.dom.tables){
       table.addEventListener('click', function(event){
         if(event.target.classList.contains(classNames.booking.tableBooked)){
-          alert('That table is reserved.');
+          alert('That table is reserved');
         }
         const targetTable = table.getAttribute('data-table');
         if(!event.target.classList.contains(classNames.booking.tableSelected)){
@@ -167,7 +167,7 @@ class Booking{
               thisBooking.selectedTable.splice(index, 1);
             }
           }
-          event.target.classList.add(classNames.booking.tableSelected);
+          event.target.classList.add(classNames.booking.tableSelected); 
           thisBooking.selectedTable.push(targetTable);
         } else {
           event.target.classList.remove(classNames.booking.tableSelected);
@@ -175,13 +175,13 @@ class Booking{
           thisBooking.selectedTable.splice(index, 1);
         }
         thisBooking.getTable = targetTable;
+        console.log(thisBooking.selectedTable);
       });
-
       thisBooking.dom.wrapper.addEventListener('updated', function(){
         table.classList.remove(classNames.booking.tableSelected);
         thisBooking.selectedTable = [];
       });
-    }
+    }  
   }
 
   sendBooking(){
