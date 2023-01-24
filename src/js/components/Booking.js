@@ -13,6 +13,7 @@ class Booking{
     thisBooking.initWidgets();
     thisBooking.getData();
     thisBooking.initTables();
+    thisBooking.initStarter();
   }
   getData(){
     const thisBooking = this;
@@ -211,6 +212,23 @@ class Booking{
 
     fetch(url, options);
     thisBooking.updateDOM();
+  }
+
+  initStarter(){
+    const thisBooking = this;
+
+    thisBooking.dom.starter.addEventListener('click', function(event){
+      const starter = event.target;
+
+      if(starter.getAttribute('type') === 'checkbox' && starter.getAttribute('name') === 'starter'){
+        if(starter.checked){
+          thisBooking.starters.push(starter.value);          
+        } else if (!starter.checked){
+          const starterId = thisBooking.starters.indexOf(starter.value);
+          thisBooking.starters.splice(starterId, 1);
+        }        
+      }
+    });
   }
 
 
