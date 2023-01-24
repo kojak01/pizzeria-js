@@ -85,10 +85,10 @@ class Booking{
         for(let loopDate = minDate; loopDate <= maxDate; loopDate = utils.addDays(loopDate, 1)){
           thisBooking.makeBooked(utils.dateToStr(loopDate), item.hour, item.duration, item.table);
         }
-        
       }
     }
     // console.log('thisBooking.booked', thisBooking.booked);
+    thisBooking.updateDOM();
   }
   makeBooked(date, hour, duration, table){
     const thisBooking = this;
@@ -158,6 +158,7 @@ class Booking{
     thisBooking.dom.hoursAmount = thisBooking.dom.wrapper.querySelector(select.booking.hoursAmount);
     thisBooking.dom.datePickerInput = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPickerInput = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
+    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
   }
   initWidgets(){
     const thisBooking = this;
@@ -172,6 +173,10 @@ class Booking{
     
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePickerInput);
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPickerInput);
+
+    thisBooking.dom.wrapper.addEventListener('updated', function(){
+      thisBooking.updateDOM();
+    });
   }
 }
 
