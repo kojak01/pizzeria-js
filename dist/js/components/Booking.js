@@ -7,6 +7,7 @@ class Booking{
   constructor(element){
     const thisBooking = this;
     thisBooking.selectedTable = [];
+    thisBooking.starters = [];
 
     thisBooking.render(element);
     thisBooking.initWidgets();
@@ -172,6 +173,7 @@ class Booking{
           const index = thisBooking.selectedTable.indexOf(targetTable);
           thisBooking.selectedTable.splice(index, 1);
         }
+        thisBooking.getTable = targetTable;
       });
 
       thisBooking.dom.wrapper.addEventListener('updated', function(){
@@ -179,6 +181,36 @@ class Booking{
         thisBooking.selectedTable = [];
       });
     }
+  }
+
+  sendBooking(){
+    const thisBooking = this;
+
+    const url = settings.db.url + '/' + settings.db.bookings;
+
+    const payload = {
+      date: thisBooking.datePicker.value,
+      hour: thisBooking.hourPicker.value,
+      table: thisBooking.getTable,
+      duration: parseInt(thisBooking.hoursAmount.value),
+      ppl: parseInt(thisBooking.peopleAmount.value),
+      starters: thisBooking.starters,
+      phone: thisBooking.dom.phone.value,
+      address: thisBooking.dom.address.value,
+    };
+
+    thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    };
+
+    fetch(url, options);
+    thisBooking.updateDOM();
   }
 
 
@@ -194,6 +226,11 @@ class Booking{
     thisBooking.dom.datePickerInput = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPickerInput = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
+    thisBooking.dom.floorPlan = thisBooking.dom.wrapper.querySelector(select.booking.floorPlan);
+    thisBooking.dom.phone = thisBooking.dom.wrapper.querySelector(select.booking.phone);
+    thisBooking.dom.address = thisBooking.dom.wrapper.querySelector(select.booking.address);  
+    thisBooking.dom.form = thisBooking.dom.wrapper.querySelector(select.booking.form);
+    thisBooking.dom.starter = thisBooking.dom.wrapper.querySelector(select.booking.starterCheckbox);
   }
   initWidgets(){
     const thisBooking = this;
@@ -211,6 +248,11 @@ class Booking{
 
     thisBooking.dom.wrapper.addEventListener('updated', function(){
       thisBooking.updateDOM();
+    });
+
+    thisBooking.dom.form.addEventListener('submit', function(event){
+      event.preventDefault();
+      thisBooking.sendBooking();
     });
   }
 }
