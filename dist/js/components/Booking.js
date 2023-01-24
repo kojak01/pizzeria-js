@@ -6,10 +6,12 @@ import HourPicker from '../components/HourPicker.js';
 class Booking{
   constructor(element){
     const thisBooking = this;
+    thisBooking.selectedTable = [];
 
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
+    thisBooking.initTables();
   }
   getData(){
     const thisBooking = this;
@@ -143,6 +145,39 @@ class Booking{
       } else {
         table.classList.remove(classNames.booking.tableBooked);
       }
+    }
+  }
+
+  initTables() {
+    const thisBooking = this;
+
+    for(let table of thisBooking.dom.tables){
+      table.addEventListener('click', function(event){
+        if(event.target.classList.contains(classNames.booking.tableBooked)){
+          alert('That table is reserved.');
+        }
+        const targetTable = table.getAttribute('data-table');
+        if(!event.target.classList.contains(classNames.booking.tableSelected)){
+          for(let lastTable of thisBooking.dom.tables){
+            if(lastTable.classList.contains(classNames.booking.tableSelected)){
+              lastTable.classList.remove(classNames.booking.tableSelected);
+              const index = thisBooking.selectedTable.indexOf(targetTable);
+              thisBooking.selectedTable.splice(index, 1);
+            }
+          }
+          event.target.classList.add(classNames.booking.tableSelected);
+          thisBooking.selectedTable.push(targetTable);
+        } else {
+          event.target.classList.remove(classNames.booking.tableSelected);
+          const index = thisBooking.selectedTable.indexOf(targetTable);
+          thisBooking.selectedTable.splice(index, 1);
+        }
+      });
+
+      thisBooking.dom.wrapper.addEventListener('updated', function(){
+        table.classList.remove(classNames.booking.tableSelected);
+        thisBooking.selectedTable = [];
+      });
     }
   }
 
