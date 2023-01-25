@@ -76,6 +76,56 @@
     </section>
   </div>
   <!--end-->
+  <!--start HomePage-->
+  <script id="template-homepage" type="text/x-handlebars-template">
+    <div class="home-links">
+      <div class="links">
+        <div class="link link-one">
+          <a href="#/order">Order online</a>
+          <img src="images/homepage/pizza-1.jpg" alt="pizza">
+        </div>
+        <div class="link link-two">
+          <a href="#/booking">Book a table</a>
+          <img src="images/homepage/pizza-2.jpg" alt="pizza">
+        </div>
+      </div>
+      <div class="open-hours">
+        <div class="text">
+          <p>Opening hours</p>
+          <p>Tue-Sun, 12pm - 12am</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel">
+      <div class="main_carousel" data-flickity='{ "cellAlign": "left", "contain": true, "autoPlay": 3000, "wrapAround": true, "prevNextButtons": false }'>        {{#each carouselData}}
+          <div class='carousel-cell'>
+            <div class='img-container'>
+              <img src='{{img}}' alt='pizza'>
+            </div>
+            <div class='quotation'>
+              <p class='quotation-title'>{{title}}</p>
+              <p class='quotation-text'>{{text}}</p>
+              <p class='quotation-author'>{{author}}</p>
+            </div>
+          </div>
+          {{/each}}
+      </div>
+    </div>
+    <div class="gallery">
+      {{#each galleryLinks}}
+      <div class='gallery-pics'>
+        <img src='{{this}}' alt=''>
+        <div class='icons'>
+          <i class='fa-sharp fa-solid fa-heart'></i>
+          <i class='fa-solid fa-share-nodes'></i>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    <a class="insta-link" href="#">View more on Instagram</a>
+  </script>
+  <!--end HomePage-->
+
   <!--new Script start-->
   <script id="template-booking-widget" type="text/x-handlebars-template">
     <div class="booking-widget">
