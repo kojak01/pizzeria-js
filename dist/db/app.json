@@ -265,9 +265,8 @@
   ],
   "bookings": [
     {
-      "date": "2023-01-27",
-      "hour": "20:30",
-      "table": "2",
+      "date": "2023-01-25",
+      "hour": "12:00",
       "duration": 0,
       "ppl": 0,
       "starters": [],
